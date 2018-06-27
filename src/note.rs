@@ -41,10 +41,10 @@ impl Note {
     pub fn parse<'a>(data: &'a str, options: &Metadata) -> ParseResult<'a, Note> {
         let parts = Note::split_note_data(&data)?;
 
-        let octave = parse_match_or_default::<i32>(parts.get(1), options.octave);
+        let duration = parse_match_or_default::<i32>(parts.get(1), options.duration);
         let pitch = Pitch::try_from(parts.get(2).unwrap().as_str())?;
 
-        let duration = parse_match_or_default::<i32>(parts.get(3), options.duration);
+        let octave = parse_match_or_default::<i32>(parts.get(3), options.octave);
         let dotted = parts.get(4).is_some();
 
         Ok(Note { pitch: pitch, octave: octave, duration: duration, dotted: dotted })
